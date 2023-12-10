@@ -25,17 +25,33 @@ function fetchWordData(word){
                             // if the pos is already created,
                             //      add the def under it
                             // else make a new pos & add the def under that
+                            let defVar = def.definitions[0].definition;
                             if(document.getElementById(`definitions-${def.partOfSpeech}`) != null){
                                 console.log("in if");
-                                const defintionMarkUp = `<li>${def.definitions[0].definition}</li>`;
+                                const defintionMarkUp = `<li id="${defVar}">${defVar}</li>`;
                                 document.getElementById(`definitions-${def.partOfSpeech}`).insertAdjacentHTML("beforeend", defintionMarkUp);
                             }
                             else{
                                 console.log("in else");
-                                const posMarkUp = `<li id="pos" class="${def.partOfSpeech}">${def.partOfSpeech}</li><ul id="definitions-${def.partOfSpeech}"></ul>`;
+                                const posMarkUp = `<li id="pos" class="${def.partOfSpeech} mt-2"><i>${def.partOfSpeech}</i></li><ul id="definitions-${def.partOfSpeech}"></ul>`;
                                 document.getElementById('definitionBody').insertAdjacentHTML("beforeend", posMarkUp);
-                                const defintionMarkUp = `<li>${def.definitions[0].definition}</li>`;
+                                const defintionMarkUp = `<li id="${defVar}">${defVar}</li>`;
                                 document.getElementById(`definitions-${def.partOfSpeech}`).insertAdjacentHTML("beforeend", defintionMarkUp);
+                            }
+                            console.log(def.synonyms);
+                            if(def.synonyms.length > 0){
+                                const synonymMarkUp = `<li id="synonyms" class="list-last-no-bullet text-primary text-opacity-75">&ensp;&ensp;&ensp;&ensp;Synonyms: </li>`;
+                                document.getElementById(`definitions-${def.partOfSpeech}`).insertAdjacentHTML("afterend", synonymMarkUp);
+
+                                // synonyms are all going into one line, not breaking up by definition
+                                // tried making ids like above, something isn't right.
+                                def.synonyms.forEach(
+                                    syn => {
+                                        const synMarkUp = `<span class="badge rounded-pill bg-secondary me-1">${syn} </span>`;
+                                        document.getElementById(`synonyms`).insertAdjacentHTML("beforeend", synMarkUp);
+                                    }
+                                    
+                                )
                             }
                         }
                     )
