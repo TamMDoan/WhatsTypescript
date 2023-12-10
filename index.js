@@ -7,7 +7,6 @@
 
 
 function fetchWordData(word){
-    let num = 0;
     fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+word).then(res => {return res.json()}).then(
         data => {
             console.log(data);
@@ -20,16 +19,24 @@ function fetchWordData(word){
                     //console.log(definition[0]);
                     definition.forEach(
                         def => {
-
-                            const definitionId = "definitions" + num;
-                            console.log(def);
-                            console.log(def.definitions[0].definition);
-                            const posMarkUp = `<li id="pos">${def.partOfSpeech}</li><ul id="definitions${num}"></ul>`;
-                            document.getElementById('definitionBody').insertAdjacentHTML("beforeend", posMarkUp);
-                            const defintionMarkUp = `<li>${def.definitions[0].definition}</li>`;
-                            document.getElementById(`definitions${num}`).insertAdjacentHTML("beforeend", defintionMarkUp);
-
-                            num++;
+                            //console.log(def);
+                            //console.log(def.definitions[0].definition);
+                            // make an if-else here
+                            // if the pos is already created,
+                            //      add the def under it
+                            // else make a new pos & add the def under that
+                            if(document.getElementById(`definitions-${def.partOfSpeech}`) != null){
+                                console.log("in if");
+                                const defintionMarkUp = `<li>${def.definitions[0].definition}</li>`;
+                                document.getElementById(`definitions-${def.partOfSpeech}`).insertAdjacentHTML("beforeend", defintionMarkUp);
+                            }
+                            else{
+                                console.log("in else");
+                                const posMarkUp = `<li id="pos" class="${def.partOfSpeech}">${def.partOfSpeech}</li><ul id="definitions-${def.partOfSpeech}"></ul>`;
+                                document.getElementById('definitionBody').insertAdjacentHTML("beforeend", posMarkUp);
+                                const defintionMarkUp = `<li>${def.definitions[0].definition}</li>`;
+                                document.getElementById(`definitions-${def.partOfSpeech}`).insertAdjacentHTML("beforeend", defintionMarkUp);
+                            }
                         }
                     )
                 }
