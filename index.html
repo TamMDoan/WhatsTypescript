@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script src="index.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -56,9 +57,9 @@
           <a class="nav-link" href="https://dictionaryapi.dev">Our API</a>
         </li>
       </ul>
-      <form class="d-flex" id="defineform">
-        <input class="form-control me-2" type="search" name="defineword" placeholder="What word?" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Define</button>
+      <form class="d-flex" id="defineform" submit="testingReload(event); return false;">
+        <input class="form-control me-2" id="wordToSearch" type="search" name="defineword" placeholder="What word?" aria-label="Search">
+        <button class="btn btn-outline-success" type="button" onclick="testingReload(event)">Define</button>
       </form>
     </div>
   </div>
@@ -66,9 +67,12 @@
 
 <main class="container">
   <div class="bg-light p-5 rounded">
-    <h1>Definition</h1>
-    <p class="lead">Use this part of the page to present your results from the API call.</p>
-    <ul class="list-unstyled">
+    <h1 id="wordHeading"></h1>
+    <ul class="list-unstyled" id="definitionBody">
+       <!-- li parts of speech
+                create ul
+                    li definition
+                    li example
         <li>This is a list. Your word could go here.</li>
         <li>It appears completely unstyled.</li>
         <li>Maybe your multiple definitions of the word are here?</li>
@@ -81,7 +85,7 @@
             <li>and have appropriate left margin</li>
           </ul>
         </li>
-        <li>This may still come in handy in some situations.</li>
+        <li>This may still come in handy in some situations.</li>-->
       </ul>
   </div>
 </main>
